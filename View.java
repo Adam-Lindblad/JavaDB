@@ -10,6 +10,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class View {
 
@@ -27,8 +29,6 @@ public class View {
 
     public View(){
 
-        
-
         jframe = new JFrame("Databastest");
         rightPanel = new JPanel();
         leftPanel = new JPanel();
@@ -41,7 +41,7 @@ public class View {
         lText2 = new JLabel("Efternamn:");
         text3 = new JTextField();
         lText3 = new JLabel("ID:");
-        rAll = new JRadioButton("Alla");
+        rAll = new JRadioButton("Alla", true);
         rFNamn = new JRadioButton("Förnamn");
         rENamn = new JRadioButton("Efternamn");
         rID = new JRadioButton("ID");
@@ -54,12 +54,7 @@ public class View {
         deleteBtn = new JButton("Ta bort");
         controller = new Controller(this); 
 
-        String[] cols = {"ID", "Förnamn", "Efternamn"};
-        String[][] data = {
-            {"42", "Adam", "Lindblad"},
-            {"69", "Jennie", "Vig"}
-        };
-        table = new JTable(data, cols);
+        table = new JTable();
         scroll = new JScrollPane(table);
 
         text1.setPreferredSize(new Dimension(100, 20));
@@ -109,29 +104,31 @@ public class View {
         rightPanel.add(scroll);
         rightPanel.setPreferredSize(new Dimension(400, 400));
 
-
         jframe.add(leftPanel, BorderLayout.WEST);
         jframe.add(rightPanel, BorderLayout.CENTER);
-        //jframe.addWindowListener(controller);
+        jframe.addWindowListener(controller);
 
         jframe.setSize(800, 600);
         jframe.setVisible(true);
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 
     public String getBtnGroup(){
         if(rFNamn.isSelected()){
-            return "Firstname";
+            return "Förnamn";
         } else if (rENamn.isSelected()){
-            return "Lastname";
+            return "Efternamn";
         } else if (rID.isSelected()){
             return "id";
         } else if (rAll.isSelected()){
             return "Alla";
         }
 
-        return "Ingen";
+        return "Failure";
+    }
+
+    public void setTable(DefaultTableModel tableModel){
+        table.setModel(tableModel);
     }
 
     public String getText1(){
