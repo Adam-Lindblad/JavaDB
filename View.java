@@ -132,18 +132,20 @@ public class View {
     }
 
     public String getText1(){
-        return text1.getText();
+        String temp = text1.getText();
+        text1.setText("");
+        return temp;
     }
 
     public String getText2(){
-        return text2.getText();
+        String temp = text2.getText();
+        text2.setText("");
+        return temp;
     }
 
     public String getText3(){
-        return text3.getText();
-    }
-    
-    public static void main(String[] args) {
-        new View();
+        String temp = text3.getText();
+        text3.setText("");
+        return temp;
     }
 }
